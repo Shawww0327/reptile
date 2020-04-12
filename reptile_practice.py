@@ -13,6 +13,12 @@
 from selenium import webdriver
 import time
 
+if __name__ == '__main__':
+    weibo_login()
+    add_follow()
+    unfollow()
+    write_comment()
+    write_weibo()
     
 browser = webdriver.Chrome()
 browser.get('https://www.weibo.com/login.php')
@@ -43,7 +49,17 @@ def add_follow(uid):
     follow_button = browser.find_element_by_xpath('//*[@id="plc_frame"]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[4]/div[1]/div[1]/a')
     follow_button.click()
     time.sleep(1)
- 
+
+#取消关注
+def unfollow(uid):
+    browser.get('https://www.weibo.com/u/' + str(uid))
+    time.sleep(1)
+    follow_button = browser.find_element_by_xpath('//*[@id="plc_frame"]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[4]/div[1]/div[1]/a')
+    follow_button.click()
+    time.sleep(3)
+    unfollow_button = browser.find_element_by_xpath('//div[@class="layer_menu_list_b "]/div[1]/div[1]/ul[1]/li[4]/a')
+    unfollow_button.click()
+    time.sleep(1)
 
 # 写评论
 def write_comment(weibo, content):
