@@ -23,9 +23,18 @@ if __name__ == '__main__':
 browser = webdriver.Chrome()
 browser.get('https://www.weibo.com/login.php')
 
+# 验证码n次尝试登录函数
+def verify_login(n):
+    for i in range(n):
+        verification_area = browser.find_element_by_xpath('//*[@id="pl_login_form"]/div/div[3]/div[3]/div/input')
+        verification_area.send_keys(input("输入验证码： "))
+        time.sleep(3)
+        login_button = browser.find_element_by_xpath('//*[@id="pl_login_form"]/div/div[3]/div[6]/a/span')
+        login_button.click()
+    
 
 # 登陆微博
-def weibo_login(username, password):
+def weibo_login(username, password, n):
     browser.get('https://www.weibo.com/login.php')
     time.sleep(1)
     # 输入用户名
@@ -36,10 +45,7 @@ def weibo_login(username, password):
     password_area = browser.find_element_by_xpath('//*[@id="plc_unlogin_home_main"]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/div[2]/div[1]/input')
     password_area.send_keys(password)
     time.sleep(1)
-    # 点击登录
-    login_button = browser.find_element_by_xpath('//*[@id="plc_unlogin_home_main"]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/div[6]/div[1]/a')
-    login_button.click()
-    time.sleep(1)
+    verify_login(n)
     
     
 # 加关注
