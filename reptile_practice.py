@@ -68,8 +68,8 @@ def unfollow(uid):
     time.sleep(1)
 
 # 写评论
-def write_comment(weibo, content):
-    browser.get(weibo)
+def write_comment(uid, content):
+    browser.get('https://www.weibo.com/u/' + str(uid))
     time.sleep(1)
     # 点击评论按钮
     content_button1 = browser.find_element_by_xpath('//*[@id="plc_frame"]/div[1]/div[2]/div[2]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[3]/a]')
@@ -97,3 +97,15 @@ def write_weibo(content):
     write_button = browser.find_element_by_xpath('//*[@id="plc_frame"]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/a')
     write_button.click()
     time.sleep(1)
+
+    
+if __name__ == '__main__':
+    weibo_login('297088546@qq.com', 'gyxlzy03271230', 3)
+    browser.implicitly_wait(10)
+    add_follow('5746403289')
+    browser.implicitly_wait(5)
+    unfollow('5746403289')
+    browser.implicitly_wait(5)
+    write_comment('5746403289', 'haha')
+    browser.implicitly_wait(5)
+    write_weibo('haha')
